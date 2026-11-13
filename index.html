@@ -1,0 +1,627 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Aradhan Kammela Portfolio</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout concept: an on-call console. Sections read like services on a status page; the hero carries a live (simulated) service console. */
+:root{
+  --bg:#F2F4F6; --surface:#FFFFFF; --surface2:#E8ECF0; --fg:#0F1A24; --muted:#56646F; --line:#D5DCE2;
+  --accent:#C2410C; --accent-fg:#FFFFFF; --ok:#0F766E; --warn:#B45309; --crit:#B91C1C;
+  --font-display:'Bricolage Grotesque','Segoe UI',system-ui,sans-serif;
+  --font-body:'IBM Plex Sans','Segoe UI',system-ui,sans-serif;
+  --font-mono:'IBM Plex Mono',ui-monospace,Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0C1217; --surface:#131B22; --surface2:#1A242D; --fg:#E6EDF2; --muted:#8FA0AD; --line:#26333D;
+  --accent:#FF9A4D; --accent-fg:#1A0E05; --ok:#3DD6BC; --warn:#F5B84B; --crit:#FF6B6B; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0C1217; --surface:#131B22; --surface2:#1A242D; --fg:#E6EDF2; --muted:#8FA0AD; --line:#26333D;
+  --accent:#FF9A4D; --accent-fg:#1A0E05; --ok:#3DD6BC; --warn:#F5B84B; --crit:#FF6B6B; color-scheme:dark}
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--fg);font:16px/1.6 var(--font-body);
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:0}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:30;background:var(--bg)}
+.wrap{max-width:1120px;margin:0 auto}
+h1,h2,h3{font-family:var(--font-display);text-wrap:balance;margin:0;line-height:1.1;letter-spacing:-.01em}
+p{margin:0}
+button{font:inherit;color:inherit;cursor:pointer}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.mono{font-family:var(--font-mono)}
+.lbl{font:500 11px/1 var(--font-mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+section{padding-block:72px;scroll-margin-top:64px}
+.sec-head{display:flex;flex-direction:column;gap:10px;margin-bottom:28px;max-width:62ch}
+.sec-head h2{font-size:clamp(28px,4vw,40px)}
+.sec-head p{color:var(--muted)}
+
+/* header */
+header.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+header.top .wrap{display:flex;align-items:center;gap:16px;min-height:56px;flex-wrap:wrap;padding-block:6px}
+.brand{font:600 15px var(--font-mono);letter-spacing:-.01em}
+.brand i{color:var(--accent);font-style:normal}
+nav{display:flex;gap:4px;margin-left:auto;flex-wrap:wrap}
+nav a{color:var(--muted);text-decoration:none;font-size:14px;padding:6px 10px;border-radius:6px}
+nav a:hover{color:var(--fg);background:var(--surface2)}
+.theme{border:1px solid var(--line);background:var(--surface);border-radius:6px;padding:5px 10px;font:500 12px var(--font-mono)}
+
+/* hero */
+.hero{padding-top:56px;padding-bottom:56px;display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);gap:40px;align-items:start}
+.chip{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:5px 12px;font:500 12px var(--font-mono);color:var(--muted)}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--ok);flex:none}
+.dot.crit{background:var(--crit)}.dot.warn{background:var(--warn)}
+.pulse{animation:pulse 2s infinite}
+@keyframes pulse{50%{opacity:.35}}
+.hero h1{font-size:clamp(40px,7vw,72px);margin:20px 0 14px}
+.hero .role{font:500 15px var(--font-mono);color:var(--accent);margin-bottom:18px}
+.hero .lede{max-width:52ch;color:var(--muted);font-size:17px}
+.stats{display:flex;flex-wrap:wrap;gap:12px;margin-top:28px}
+.stat{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:12px 16px;min-width:110px}
+.stat b{display:block;font:700 28px var(--font-display);font-variant-numeric:tabular-nums}
+.stat span{font-size:12px;color:var(--muted)}
+.cta{display:flex;gap:10px;flex-wrap:wrap;margin-top:28px}
+.btn{border:1px solid var(--line);background:var(--surface);border-radius:8px;padding:10px 16px;font-weight:500;text-decoration:none;color:var(--fg);display:inline-block}
+.btn:hover{border-color:var(--muted)}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:var(--accent-fg)}
+.btn.primary:hover{filter:brightness(1.06)}
+
+/* console */
+.console{background:var(--surface);border:1px solid var(--line);border-radius:12px;overflow:hidden}
+.console-bar{display:flex;align-items:center;gap:10px;padding:10px 14px;border-bottom:1px solid var(--line);flex-wrap:wrap}
+.console-bar .spacer{flex:1}
+.console-bar time{font:400 12px var(--font-mono);color:var(--muted)}
+.metrics{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--line)}
+.m{background:var(--surface);padding:12px 14px;min-width:0}
+.m-top{display:flex;justify-content:space-between;align-items:baseline;gap:8px;margin-bottom:6px}
+.m-top b{font:500 20px var(--font-mono);font-variant-numeric:tabular-nums}
+.m canvas{width:100%;height:44px;display:block}
+.console-foot{padding:12px 14px;border-top:1px solid var(--line);display:flex;flex-direction:column;gap:10px}
+.alerts{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px;font-size:13px}
+.alerts li{display:grid;grid-template-columns:auto 1fr;gap:4px 10px;align-items:start;padding:8px 10px;background:var(--surface2);border-radius:8px}
+.alerts li .t{font:400 11px var(--font-mono);color:var(--muted)}
+.alerts li .msg{grid-column:2;min-width:0;overflow-wrap:anywhere}
+.alerts li button{grid-column:2;justify-self:start}
+.alerts .empty{color:var(--muted);background:none;border:1px dashed var(--line)}
+.small{font-size:13px;padding:6px 10px;border-radius:6px;border:1px solid var(--line);background:var(--surface)}
+.small:hover{border-color:var(--muted)}
+.small.go{border-color:var(--accent);color:var(--accent)}
+
+/* tabs & project panels */
+.tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:16px}
+.tab{border:1px solid var(--line);background:var(--surface);padding:9px 14px;border-radius:8px;font-weight:500;font-size:14px}
+.tab[aria-selected="true"]{background:var(--fg);color:var(--bg);border-color:var(--fg)}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:24px;display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:28px}
+.panel h3{font-size:26px;margin-bottom:10px}
+.panel .about p{color:var(--muted);margin-bottom:14px}
+.result{display:flex;align-items:baseline;gap:10px;margin:14px 0}
+.result b{font:700 44px var(--font-display);color:var(--accent);font-variant-numeric:tabular-nums}
+.result span{color:var(--muted);font-size:14px}
+.tags{display:flex;flex-wrap:wrap;gap:6px}
+.tag{font:400 12px var(--font-mono);border:1px solid var(--line);border-radius:6px;padding:3px 8px;color:var(--muted);background:var(--bg)}
+.demo{min-width:0;display:flex;flex-direction:column;gap:12px}
+.demo-note{font:400 12px var(--font-mono);color:var(--muted)}
+textarea,input[type=text],input[type=number],input[type=search]{width:100%;font:400 14px var(--font-mono);background:var(--bg);color:var(--fg);border:1px solid var(--line);border-radius:8px;padding:10px 12px}
+textarea{min-height:92px;resize:vertical}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.steps-line{display:flex;gap:6px;flex-wrap:wrap}
+.step{font:500 11px var(--font-mono);letter-spacing:.06em;text-transform:uppercase;padding:4px 8px;border-radius:6px;border:1px solid var(--line);color:var(--muted)}
+.step.on{border-color:var(--accent);color:var(--accent)}
+.step.done{border-color:var(--ok);color:var(--ok)}
+.out{border:1px solid var(--line);border-radius:8px;background:var(--bg);padding:14px;min-height:120px;font-size:14px;overflow-x:auto}
+.out .hit{display:grid;grid-template-columns:minmax(0,1fr) 54px;gap:4px 10px;margin-bottom:10px;align-items:center}
+.bar{height:6px;border-radius:3px;background:var(--surface2);grid-column:1/-1;overflow:hidden}
+.bar i{display:block;height:100%;background:var(--accent);width:0;transition:width .5s}
+.kv{display:grid;grid-template-columns:110px minmax(0,1fr);gap:6px 12px;margin-top:10px}
+.kv dt{color:var(--muted);font:400 12px var(--font-mono);text-transform:uppercase;letter-spacing:.06em;padding-top:2px}
+.kv dd{margin:0}
+.kv ol{margin:0;padding-left:18px}
+.sev{font:500 12px var(--font-mono);padding:2px 8px;border-radius:5px;border:1px solid currentColor}
+.sev.High{color:var(--crit)}.sev.Medium{color:var(--warn)}
+.trace{display:flex;flex-direction:column;gap:8px}
+.tr{border-left:3px solid var(--line);padding:6px 0 6px 12px;font-size:14px;animation:in .3s}
+@keyframes in{from{opacity:0;transform:translateY(4px)}}
+.tr .k{font:500 11px var(--font-mono);letter-spacing:.08em;color:var(--muted);text-transform:uppercase;display:block;margin-bottom:2px}
+.tr.call{border-color:var(--accent)}.tr.call .k{color:var(--accent)}
+.tr.result{border-color:var(--ok)}.tr.result .k{color:var(--ok)}
+.tr.answer{border-color:var(--fg)}
+.tr pre{margin:4px 0 0;font:400 12.5px/1.5 var(--font-mono);white-space:pre-wrap;overflow-wrap:anywhere}
+.tools{display:flex;gap:6px;flex-wrap:wrap}
+table{width:100%;border-collapse:collapse;font-size:13px}
+th,td{text-align:left;padding:6px 8px;border-bottom:1px solid var(--line);font-family:var(--font-mono)}
+th{font-weight:500;color:var(--muted);font-size:11px;text-transform:uppercase;letter-spacing:.06em}
+.tbl{max-height:260px;overflow:auto}
+.pass{color:var(--ok)}.fail{color:var(--crit)}
+.calc{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.calc label{display:flex;flex-direction:column;gap:4px;font-size:12px;color:var(--muted)}
+.saved{font-size:15px}
+.saved b{font:700 24px var(--font-display);color:var(--ok)}
+
+/* skills */
+.filters{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px;align-items:center}
+.filters input{max-width:240px;font-family:var(--font-body)}
+.skills{display:flex;flex-wrap:wrap;gap:8px}
+.skill{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:8px 12px;font-size:14px;display:flex;gap:8px;align-items:center}
+.skill.core{border-color:var(--accent)}
+.skill small{font:400 11px var(--font-mono);color:var(--muted)}
+.skill .star{color:var(--accent);font-size:11px;font-family:var(--font-mono)}
+.domains{margin-top:24px}
+.domains .tags{margin-top:8px}
+
+/* certs */
+.certs{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px}
+.cert{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:14px}
+.cert b{display:block;font-weight:600;margin-bottom:2px}
+.cert span{font:400 12px var(--font-mono);color:var(--muted)}
+.cert em{font:500 12px var(--font-mono);font-style:normal;color:var(--ok);display:block;margin-top:6px}
+
+/* path */
+.path{list-style:none;margin:0;padding:0;border-left:2px solid var(--line);margin-left:6px}
+.path li{position:relative;padding:0 0 10px 24px}
+.path li::before{content:"";position:absolute;left:-7px;top:16px;width:12px;height:12px;border-radius:50%;background:var(--bg);border:2px solid var(--muted)}
+.path li.now::before{border-color:var(--accent);background:var(--accent)}
+.path button{width:100%;text-align:left;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:12px 14px;display:flex;flex-direction:column;gap:2px}
+.path button:hover{border-color:var(--muted)}
+.path .when{font:400 12px var(--font-mono);color:var(--muted)}
+.path .what{font-weight:600}
+.path .more{color:var(--muted);font-size:14px;margin-top:6px}
+
+/* contact */
+.contact{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:28px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:28px}
+.contact h3{font-size:30px;margin-bottom:10px}
+.contact p{color:var(--muted)}
+.links{display:flex;flex-direction:column;gap:8px;margin-top:16px}
+footer{padding-block:32px;border-top:1px solid var(--line);color:var(--muted);font:400 12px var(--font-mono)}
+
+@media (max-width:860px){
+  .hero,.panel,.contact{grid-template-columns:minmax(0,1fr)}
+  section{padding-block:52px}
+  nav{margin-left:0;width:100%}
+  .panel,.contact{padding:18px}
+}
+@media (max-width:420px){.calc{grid-template-columns:1fr}.kv{grid-template-columns:1fr}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}html{scroll-behavior:auto}}
+</style>
+
+<header class="top"><div class="wrap">
+  <span class="brand">aradhan<i>@</i>kammela</span>
+  <nav aria-label="Sections">
+    <a href="#work">Projects</a><a href="#toolbox">Toolbox</a><a href="#creds">Credentials</a><a href="#path">Path</a><a href="#contact">Contact</a>
+  </nav>
+  <button class="theme" id="themeBtn" type="button" aria-label="Switch colour theme">Theme</button>
+</div></header>
+
+<main class="wrap">
+<div class="hero" id="top">
+  <div>
+    <span class="chip"><span class="dot pulse"></span>Open to roles · flexible on shift and location</span>
+    <h1>Aradhan Babu Kammela</h1>
+    <div class="role">DevOps &amp; observability engineer · Hyderabad</div>
+    <p class="lede">Three years of production support for retail platforms showed me where incidents lose time. I build GenAI tooling that closes that gap: retrieval for triage, and agents that call the same tools an engineer would.</p>
+    <div class="stats">
+      <div class="stat"><b>3+</b><span>years in production ops</span></div>
+      <div class="stat"><b id="certCount">10</b><span>certifications</span></div>
+      <div class="stat"><b>3</b><span>projects you can run below</span></div>
+    </div>
+    <div class="cta">
+      <a class="btn primary" href="#work" data-jump="work">Run the demos</a>
+      <a class="btn" href="#contact" data-jump="contact">Work with me</a>
+    </div>
+  </div>
+
+  <div class="console" aria-label="Simulated live service console">
+    <div class="console-bar">
+      <span class="dot pulse" id="svcDot"></span><b class="mono" style="font-size:13px" id="svcState">checkout-platform · healthy</b>
+      <span class="spacer"></span><time id="clock">--:--:-- IST</time>
+    </div>
+    <div class="metrics">
+      <div class="m"><div class="m-top"><span class="lbl">Requests/s</span><b id="v-rps">–</b></div><canvas id="c-rps"></canvas></div>
+      <div class="m"><div class="m-top"><span class="lbl">p95 latency</span><b id="v-p95">–</b></div><canvas id="c-p95"></canvas></div>
+      <div class="m"><div class="m-top"><span class="lbl">Error rate</span><b id="v-err">–</b></div><canvas id="c-err"></canvas></div>
+      <div class="m"><div class="m-top"><span class="lbl">Queue depth</span><b id="v-q">–</b></div><canvas id="c-q"></canvas></div>
+    </div>
+    <div class="console-foot">
+      <ul class="alerts" id="alerts"><li class="empty"><span></span><span class="msg">No active alerts. Inject an incident and send it to the triage demo.</span></li></ul>
+      <div class="row"><button class="small go" id="injectBtn" type="button">Inject incident</button><span class="demo-note">Simulated data, updates every second</span></div>
+    </div>
+  </div>
+</div>
+
+<section id="work">
+  <div class="sec-head">
+    <span class="lbl">Projects</span>
+    <h2>Three builds, each runnable here</h2>
+    <p>The demos use small sample data so they run in your browser. The result figures are the ones I measured on the real work.</p>
+  </div>
+  <div class="tabs" role="tablist" id="tabs">
+    <button class="tab" role="tab" aria-selected="true" data-tab="rag" id="tab-rag" aria-controls="p-rag" type="button">RAG incident triage</button>
+    <button class="tab" role="tab" aria-selected="false" data-tab="mcp" id="tab-mcp" aria-controls="p-mcp" type="button">MCP tool-calling agent</button>
+    <button class="tab" role="tab" aria-selected="false" data-tab="bpid" id="tab-bpid" aria-controls="p-bpid" type="button">BPID automation</button>
+  </div>
+
+  <!-- RAG -->
+  <div class="panel" id="p-rag" role="tabpanel" aria-labelledby="tab-rag">
+    <div class="about">
+      <h3>RAG incident triage</h3>
+      <p>An incoming alert is matched against runbooks and past fixes. The engineer gets a severity, an owner and the first steps to run, instead of searching wikis while the clock runs.</p>
+      <div class="result"><b>75%</b><span>reduction, measured on the real build</span></div>
+      <div class="tags"><span class="tag">retrieval-augmented generation</span><span class="tag">Python</span><span class="tag">Splunk</span><span class="tag">ServiceNow</span></div>
+    </div>
+    <div class="demo">
+      <label class="lbl" for="ragIn">Incident text</label>
+      <textarea id="ragIn">checkout-api 5xx rate above 5% after promo-service deploy; payment authorizations timing out</textarea>
+      <div class="row" id="ragSamples"></div>
+      <div class="row"><button class="small go" id="ragRun" type="button">Triage</button><div class="steps-line" id="ragSteps"></div></div>
+      <div class="out" id="ragOut"><span class="demo-note">Result appears here. Retrieval is TF-IDF over eight sample runbooks, running locally.</span></div>
+    </div>
+  </div>
+
+  <!-- MCP -->
+  <div class="panel" id="p-mcp" role="tabpanel" aria-labelledby="tab-mcp" hidden>
+    <div class="about">
+      <h3>MCP tool-calling agent</h3>
+      <p>An agent that plans, calls tools through the Model Context Protocol, reads the results and decides the next call. It searches logs, reads dashboards, finds the runbook and opens the ticket.</p>
+      <div class="result"><b>50%</b><span>task improvement, measured on the real build</span></div>
+      <div class="tags"><span class="tag">MCP</span><span class="tag">tool calling</span><span class="tag">agents</span><span class="tag">Python</span></div>
+    </div>
+    <div class="demo">
+      <div class="lbl">Registered tools</div>
+      <div class="tools" id="toolList"></div>
+      <label class="lbl" for="mcpTask">Task</label>
+      <div class="row"><select id="mcpTask" style="flex:1;min-width:200px;font:14px var(--font-body);padding:9px 10px;border-radius:8px;border:1px solid var(--line);background:var(--bg);color:var(--fg)"></select>
+      <button class="small go" id="mcpRun" type="button">Run agent</button></div>
+      <div class="out"><div class="trace" id="trace"><span class="demo-note">Scripted trace of how the agent works through a task. Tool outputs are sample data.</span></div></div>
+      <div class="demo-note" id="mcpMeta"></div>
+    </div>
+  </div>
+
+  <!-- BPID -->
+  <div class="panel" id="p-bpid" role="tabpanel" aria-labelledby="tab-bpid" hidden>
+    <div class="about">
+      <h3>BPID lookup automation</h3>
+      <p>A BPID (Business Partner ID) identifies a retail customer and ties loyalty points to them. The manual lookup and validation was repetitive, so I automated it.</p>
+      <div class="result"><b>82%</b><span>faster, measured on the real work</span></div>
+      <div class="tags"><span class="tag">SQL</span><span class="tag">Python</span><span class="tag">Oracle SQL Developer</span><span class="tag">Talon.One</span></div>
+    </div>
+    <div class="demo">
+      <label class="lbl" for="bpidIn">Paste IDs, one per line</label>
+      <textarea id="bpidIn" spellcheck="false"></textarea>
+      <div class="row"><button class="small go" id="bpidRun" type="button">Validate batch</button><span class="demo-note">Illustrative rules: 10 digits, not all the same digit, mod-10 check. Not the production format.</span></div>
+      <div class="out tbl" id="bpidOut"><span class="demo-note">Results appear here.</span></div>
+      <div class="calc">
+        <label>Lookups per day<input type="number" id="calcN" value="60" min="1" max="5000"></label>
+        <label>Minutes per manual lookup<input type="number" id="calcM" value="3" min="0.5" max="60" step="0.5"></label>
+      </div>
+      <div class="saved" id="calcOut"></div>
+    </div>
+  </div>
+</section>
+
+<section id="toolbox">
+  <div class="sec-head">
+    <span class="lbl">Toolbox</span>
+    <h2>What I work with every day</h2>
+    <p>Outlined entries are my primary skills. Filter by area or search by name.</p>
+  </div>
+  <div class="filters" id="filters"></div>
+  <div class="skills" id="skills"></div>
+  <div class="domains">
+    <span class="lbl">Domains I have supported</span>
+    <div class="tags"><span class="tag">retail payments</span><span class="tag">settlements</span><span class="tag">promotions</span><span class="tag">merchandising</span><span class="tag">order and return apps</span></div>
+  </div>
+</section>
+
+<section id="creds">
+  <div class="sec-head">
+    <span class="lbl">Credentials</span>
+    <h2>Certifications</h2>
+    <p>Cloud, security, data and AI, with the Oracle generative AI exam as the strongest score.</p>
+  </div>
+  <div class="certs" id="certs"></div>
+</section>
+
+<section id="path">
+  <div class="sec-head">
+    <span class="lbl">Path</span>
+    <h2>From full stack to production support to GenAI</h2>
+    <p>Select an entry for detail.</p>
+  </div>
+  <ul class="path" id="pathList"></ul>
+</section>
+
+<section id="contact">
+  <div class="contact">
+    <div>
+      <h3>Looking for a team that runs production seriously</h3>
+      <p>I am available now. I am flexible on shift and location, and I learn new stacks quickly. Hyderabad is home base. I speak Telugu natively and English at C1.</p>
+      <div class="links" id="links"></div>
+    </div>
+    <div>
+      <span class="lbl">Roles I am targeting</span>
+      <div class="tags" style="margin-top:10px">
+        <span class="tag">Cloud Engineer</span><span class="tag">DevOps Engineer</span><span class="tag">Splunk Administrator</span><span class="tag">SRE / Observability Engineer</span><span class="tag">GenAI Application Developer</span><span class="tag">Agentic AI Engineer</span>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer><div class="wrap">Single-file page. The console and demo data are simulated; result figures come from the real projects.</div></footer>
+
+<script>
+(function(){
+'use strict';
+/* Fill these in to show contact buttons. Empty values stay hidden. */
+var CONFIG={github:'',linkedin:'',email:''};
+
+var $=function(s,r){return (r||document).querySelector(s)};
+var $$=function(s,r){return Array.prototype.slice.call((r||document).querySelectorAll(s))};
+var css=function(n){return getComputedStyle(document.documentElement).getPropertyValue(n).trim()};
+var sleep=function(ms){return new Promise(function(r){setTimeout(r,ms)})};
+function el(tag,cls,text){var e=document.createElement(tag);if(cls)e.className=cls;if(text!=null)e.textContent=text;return e}
+
+/* ---------- theme ---------- */
+function applyTheme(t){if(t)document.documentElement.setAttribute('data-theme',t)}
+try{applyTheme(localStorage.getItem('ak-theme'))}catch(e){}
+$('#themeBtn').addEventListener('click',function(){
+  var cur=document.documentElement.getAttribute('data-theme');
+  var dark=cur?cur==='dark':window.matchMedia('(prefers-color-scheme: dark)').matches;
+  var next=dark?'light':'dark';applyTheme(next);
+  try{localStorage.setItem('ak-theme',next)}catch(e){}
+  drawAll();
+});
+
+/* ---------- smooth anchors ---------- */
+$$('a[href^="#"]').forEach(function(a){a.addEventListener('click',function(ev){
+  var id=a.getAttribute('href').slice(1);var t=document.getElementById(id);
+  if(t){ev.preventDefault();t.scrollIntoView({behavior:'smooth',block:'start'})}
+})});
+
+/* ---------- live console ---------- */
+var N=60,H={rps:[],p95:[],err:[],q:[]};
+var S={rps:420,p95:180,err:.4,q:12},inc=0,incTicks=0,incIdx=0,alertOpen=false;
+var INCIDENTS=[
+ 'checkout-api 5xx rate above 5% after promo-service deploy; payment authorizations timing out',
+ 'settlement batch job failed at 02:10, reconciliation file missing for store group 14',
+ 'order-return service queue depth rising, return label requests stuck in pending'
+];
+function rnd(){return Math.random()*2-1}
+function step(){
+  if(incTicks>0){incTicks--;inc=Math.min(1,inc+.25)}else inc*=.86;
+  var t={rps:420+rnd()*28-inc*70,p95:180+rnd()*14+inc*640,err:.4+rnd()*.1+inc*7.6,q:12+rnd()*3+inc*165};
+  Object.keys(S).forEach(function(k){S[k]=S[k]*.65+t[k]*.35;H[k].push(S[k]);if(H[k].length>N)H[k].shift()});
+}
+for(var i=0;i<N;i++)step();
+function spark(cv,arr,color,lo,hi){
+  var dpr=window.devicePixelRatio||1,w=cv.clientWidth,h=cv.clientHeight;if(!w||!h)return;
+  if(cv.width!==Math.round(w*dpr)){cv.width=Math.round(w*dpr);cv.height=Math.round(h*dpr)}
+  var c=cv.getContext('2d');c.setTransform(dpr,0,0,dpr,0,0);c.clearRect(0,0,w,h);
+  var n=arr.length,x=function(i){return i/(n-1)*w},y=function(v){return h-3-Math.max(0,Math.min(1,(v-lo)/(hi-lo)))*(h-8)};
+  c.beginPath();arr.forEach(function(v,i){i?c.lineTo(x(i),y(v)):c.moveTo(x(i),y(v))});
+  c.strokeStyle=color;c.lineWidth=1.6;c.lineJoin='round';c.stroke();
+  c.lineTo(w,h);c.lineTo(0,h);c.closePath();c.globalAlpha=.12;c.fillStyle=color;c.fill();c.globalAlpha=1;
+  c.beginPath();c.arc(x(n-1),y(arr[n-1]),3,0,6.3);c.fillStyle=color;c.fill();
+}
+function drawAll(){
+  var ok=css('--ok'),crit=css('--crit'),warn=css('--warn');
+  spark($('#c-rps'),H.rps,ok,250,520);
+  spark($('#c-p95'),H.p95,S.p95>400?crit:ok,100,900);
+  spark($('#c-err'),H.err,S.err>2?crit:ok,0,9);
+  spark($('#c-q'),H.q,S.q>60?warn:ok,0,200);
+}
+function render(){
+  $('#v-rps').textContent=Math.round(S.rps);
+  $('#v-p95').textContent=Math.round(S.p95)+' ms';
+  $('#v-err').textContent=S.err.toFixed(2)+'%';
+  $('#v-q').textContent=Math.round(S.q);
+  var bad=S.err>2;
+  $('#svcDot').className='dot pulse'+(bad?' crit':'');
+  $('#svcState').textContent='checkout-platform · '+(bad?'degraded':'healthy');
+  if(alertOpen&&!bad&&incTicks===0&&S.err<1){alertOpen=false;addAlert('ok','Recovered: error rate back under 1%.')}
+  drawAll();
+}
+function stamp(){return new Date().toLocaleTimeString('en-GB',{timeZone:'Asia/Kolkata'})}
+function addAlert(kind,msg,triage){
+  var ul=$('#alerts');var e=ul.querySelector('.empty');if(e)e.remove();
+  var li=el('li');var d=el('span','dot'+(kind==='crit'?' crit':''));d.style.marginTop='6px';
+  li.appendChild(d);
+  var box=el('span','msg');box.appendChild(el('span','t',stamp()+' IST  '));box.appendChild(document.createTextNode(msg));li.appendChild(box);
+  if(triage){var b=el('button','small go','Send to triage');b.type='button';b.addEventListener('click',function(){
+    $('#ragIn').value=triage;selectTab('rag');document.getElementById('work').scrollIntoView({behavior:'smooth'});runRag()});li.appendChild(b)}
+  ul.insertBefore(li,ul.firstChild);while(ul.children.length>4)ul.removeChild(ul.lastChild);
+}
+$('#injectBtn').addEventListener('click',function(){
+  var txt=INCIDENTS[incIdx++%INCIDENTS.length];incTicks=22;alertOpen=true;addAlert('crit','Alert: '+txt,txt);
+});
+setInterval(function(){step();render();$('#clock').textContent=stamp()+' IST'},1000);
+window.addEventListener('resize',drawAll);
+render();$('#clock').textContent=stamp()+' IST';
+
+/* ---------- tabs ---------- */
+function selectTab(id){
+  $$('.tab').forEach(function(t){t.setAttribute('aria-selected',String(t.dataset.tab===id))});
+  ['rag','mcp','bpid'].forEach(function(k){document.getElementById('p-'+k).hidden=(k!==id)});
+}
+$$('.tab').forEach(function(t){t.addEventListener('click',function(){selectTab(t.dataset.tab)})});
+
+/* ---------- RAG demo ---------- */
+var KB=[
+ {t:'Payment authorization timeouts',k:'payment authorization timeouts gateway latency checkout 5xx card declines spike payments',o:'Payments Platform',s:'High',cause:'Gateway latency or a recent change on the payment path',steps:['Check gateway status and regional latency in Grafana','Run a Splunk search for auth timeouts grouped by region and release','Fail over to the secondary route if p95 stays high','Raise Sev1 if errors stay above 5% for 10 minutes']},
+ {t:'Promotion service deploy regression',k:'promotion promo service deploy rollback pricing mismatch discount not applied cache stale price rule',o:'Promotions Engineering',s:'High',cause:'A recent promo-service release or a stale price-rule cache',steps:['Confirm last deploy time against the first alert','Diff config and price rules between releases','Roll back through the pipeline if the diff is not trivial','Flush the cache and validate a sample basket']},
+ {t:'Settlement batch failure',k:'settlement batch job failed reconciliation file missing end of day mismatch store group scheduler',o:'Settlements Operations',s:'High',cause:'Input file missing or an upstream feed late',steps:['Read the scheduler job log for the failing step','Verify the file arrived on the transfer server','Rerun from the last checkpoint once the file lands','Tell finance operations about any delay']},
+ {t:'Order and return queue backlog',k:'order return queue backlog depth rising messages stuck pending consumer lag return label',o:'Order Management',s:'Medium',cause:'Stuck or under-scaled consumers',steps:['Check consumer lag per partition','Restart the stuck consumer','Scale replicas if lag keeps growing','Replay the dead-letter queue after recovery']},
+ {t:'Database slow queries and locks',k:'database slow queries connection pool exhausted sql timeouts locks blocking session',o:'Database Support',s:'Medium',cause:'Blocking session or exhausted connection pool',steps:['List top SQL by elapsed time','Find and clear the blocking session','Review pool size against current load','Open an index review for repeat offenders']},
+ {t:'Loyalty points and BPID lookup failures',k:'loyalty points missing bpid lookup failing business partner id not found customer',o:'Loyalty and CRM',s:'Medium',cause:'Invalid or unmatched BPID in the customer master',steps:['Validate BPID format','Look the ID up in the customer master','Reprocess the points transaction','Notify the CRM team if the master record is missing']},
+ {t:'Host CPU, disk or memory pressure',k:'host cpu saturation disk full memory pressure app servers windows service hung process',o:'Infrastructure Support',s:'Medium',cause:'Runaway process or log growth on the host',steps:['Identify the top process by CPU and memory','Clear rotated logs if disk is above 90%','Restart the hung service','Add or tune the alert threshold']},
+ {t:'Merchandising feed delay',k:'merchandising feed delayed product catalog not updating item price missing storefront ingestion',o:'Merchandising Systems',s:'Medium',cause:'Feed ingestion job stalled or file schema changed',steps:['Check the feed ingestion job status','Validate the file against the expected schema','Reload the feed','Purge the CDN cache for affected items']}
+];
+var STOP='the a an and or of to in on at is are was were be by for with after before from this that it its as not'.split(' ');
+function tok(s){return s.toLowerCase().split(/[^a-z0-9]+/).filter(function(w){return w&&STOP.indexOf(w)<0}).map(function(w){return w.length>3&&w.slice(-1)==='s'?w.slice(0,-1):w})}
+var DOCS=KB.map(function(d){return tok(d.t+' '+d.k)});
+var DF={};DOCS.forEach(function(ws){var seen={};ws.forEach(function(w){if(!seen[w]){seen[w]=1;DF[w]=(DF[w]||0)+1}})});
+function vec(ws){var v={};ws.forEach(function(w){v[w]=(v[w]||0)+1});Object.keys(v).forEach(function(w){v[w]*=Math.log(1+KB.length/(DF[w]||1))});return v}
+function cos(a,b){var d=0,na=0,nb=0;Object.keys(a).forEach(function(k){na+=a[k]*a[k];if(b[k])d+=a[k]*b[k]});Object.keys(b).forEach(function(k){nb+=b[k]*b[k]});return d?d/Math.sqrt(na*nb):0}
+var DV=DOCS.map(vec);
+var ragTok=0,STAGES=['embed','retrieve','draft'];
+function setStages(n){$$('#ragSteps .step').forEach(function(s,i){s.className='step'+(i<n?' done':i===n?' on':'')})}
+STAGES.forEach(function(s){$('#ragSteps').appendChild(el('span','step',s))});
+INCIDENTS.concat(['database connection pool exhausted, SQL timeouts on order lookup']).forEach(function(t,i){
+  var b=el('button','small',['Checkout 5xx','Settlement failure','Return queue','Database timeouts'][i]);b.type='button';
+  b.addEventListener('click',function(){$('#ragIn').value=t;runRag()});$('#ragSamples').appendChild(b)});
+async function runRag(){
+  var me=++ragTok,q=$('#ragIn').value.trim(),out=$('#ragOut');
+  if(!q){out.textContent='Enter an incident description first.';return}
+  setStages(0);out.textContent='Embedding the query…';await sleep(380);if(me!==ragTok)return;
+  var qv=vec(tok(q));
+  var hits=KB.map(function(d,i){return {d:d,s:cos(qv,DV[i])}}).sort(function(a,b){return b.s-a.s}).slice(0,3);
+  setStages(1);out.textContent='';
+  out.appendChild(el('div','lbl','Retrieved runbooks'));out.lastChild.style.marginBottom='10px';
+  hits.forEach(function(h){
+    var row=el('div','hit');row.appendChild(el('span',null,h.d.t));
+    var sc=el('span','mono',Math.round(h.s*100)+'%');sc.style.textAlign='right';row.appendChild(sc);
+    var bar=el('div','bar');var i=el('i');bar.appendChild(i);row.appendChild(bar);out.appendChild(row);
+    requestAnimationFrame(function(){requestAnimationFrame(function(){i.style.width=Math.min(100,h.s*100)+'%'})});
+  });
+  await sleep(750);if(me!==ragTok)return;
+  setStages(2);await sleep(450);if(me!==ragTok)return;
+  setStages(3);
+  var top=hits[0];
+  if(top.s<.08){out.appendChild(el('p',null,'No runbook matched with enough confidence. Route to the on-call engineer for manual triage.'));return}
+  var dl=el('dl','kv');
+  function add(k,v){dl.appendChild(el('dt',null,k));var dd=el('dd');if(typeof v==='string')dd.textContent=v;else dd.appendChild(v);dl.appendChild(dd)}
+  var sv=el('span','sev '+top.d.s,top.d.s);add('Severity',sv);
+  add('Owner',top.d.o);add('Likely cause',top.d.cause);
+  var ol=el('ol');top.d.steps.forEach(function(s){ol.appendChild(el('li',null,s))});add('First steps',ol);
+  out.appendChild(el('hr'));out.lastChild.style.cssText='border:0;border-top:1px solid var(--line);margin:14px 0 4px';
+  out.appendChild(dl);
+}
+$('#ragRun').addEventListener('click',runRag);
+
+/* ---------- MCP agent demo ---------- */
+var TOOLS=['splunk_search','grafana_query','confluence_lookup','servicenow_create'];
+TOOLS.forEach(function(t){$('#toolList').appendChild(el('span','tag',t))});
+var TASKS=[
+ {n:'Why did the settlement batch fail overnight?',s:[
+  ['think','I need the job log first, then the runbook, then a ticket if the cause is confirmed.'],
+  ['call','splunk_search',{index:'batch_jobs',query:'job=settlement status=FAILED earliest=-12h'}],
+  ['result','1 event: step 4 failed, input file recon_grp14.csv not found'],
+  ['call','confluence_lookup',{query:'settlement rerun from checkpoint'}],
+  ['result','Runbook: rerun from step 4 once the file has landed on the transfer server'],
+  ['call','servicenow_create',{short_description:'Settlement batch failed at step 4 (missing file, group 14)',assignment_group:'Settlements Operations',priority:2}],
+  ['result','Created incident (sample record)'],
+  ['answer','The batch stopped at step 4 because the group 14 reconciliation file never arrived. Rerun from that checkpoint once the file lands. A priority 2 ticket is open with Settlements Operations.']]},
+ {n:'Is the promo service healthy right now?',s:[
+  ['think','Check latency first. If it is off baseline, look at what the errors say.'],
+  ['call','grafana_query',{panel:'promo-service p95',range:'15m'}],
+  ['result','p95 612 ms against a 180 ms baseline'],
+  ['call','splunk_search',{index:'promo',query:'level=ERROR earliest=-15m | stats count by message'}],
+  ['result','238 errors, 91% are "price rule cache miss"'],
+  ['answer','Degraded. Latency is more than three times baseline and almost all errors are price-rule cache misses, which fits a stale cache after a deploy. Flush the cache and re-check p95.']]},
+ {n:'Open a ticket for the checkout 5xx errors',s:[
+  ['think','Confirm the errors are real and find the dominant endpoint before raising anything.'],
+  ['call','splunk_search',{index:'web',query:'status>=500 earliest=-30m | stats count by uri'}],
+  ['result','/api/checkout/authorize: 1,204 of 1,390 errors'],
+  ['call','servicenow_create',{short_description:'Checkout authorize endpoint returning 5xx',assignment_group:'Payments Platform',priority:1}],
+  ['result','Created incident (sample record)'],
+  ['answer','Most of the failures sit on the authorize endpoint, so the ticket went to Payments Platform at priority 1 with the Splunk query attached.']]}
+];
+TASKS.forEach(function(t,i){var o=el('option',null,t.n);o.value=i;$('#mcpTask').appendChild(o)});
+var mcpTok=0;
+async function runMcp(){
+  var me=++mcpTok,task=TASKS[+$('#mcpTask').value],tr=$('#trace'),calls=0;tr.textContent='';$('#mcpMeta').textContent='';
+  for(var i=0;i<task.s.length;i++){
+    var s=task.s[i];if(me!==mcpTok)return;
+    var d=el('div','tr '+s[0]);d.appendChild(el('span','k',s[0]==='call'?'tool call':s[0]));
+    if(s[0]==='call'){calls++;d.appendChild(el('span','mono',s[1]));d.appendChild(el('pre',null,JSON.stringify(s[2],null,2)))}
+    else d.appendChild(el('span',null,s[1]));
+    tr.appendChild(d);await sleep(s[0]==='call'?650:850);
+  }
+  $('#mcpMeta').textContent=calls+' tool calls · sample outputs';
+}
+$('#mcpRun').addEventListener('click',runMcp);
+
+/* ---------- BPID demo ---------- */
+function luhn(s){var sum=0;for(var i=0;i<s.length;i++){var d=+s[s.length-1-i];if(i%2===1){d*=2;if(d>9)d-=9}sum+=d}return sum%10===0}
+function mk(base){for(var c=0;c<10;c++){if(luhn(base+c))return base+c}}
+$('#bpidIn').value=[mk('348120571'),mk('770214398'),'55012','AB93120456',mk('600000000'),'3481205710',mk('912004376'),'1111111111'].join('\n');
+function checkId(id){
+  if(!/^\d+$/.test(id))return 'contains non-digits';
+  if(id.length!==10)return 'length is '+id.length+', expected 10';
+  if(/^(\d)\1+$/.test(id))return 'all digits identical';
+  if(!luhn(id))return 'check digit mismatch';
+  return '';
+}
+$('#bpidRun').addEventListener('click',function(){
+  var ids=$('#bpidIn').value.split('\n').map(function(s){return s.trim()}).filter(Boolean),out=$('#bpidOut');
+  out.textContent='';var t0=performance.now(),good=0;
+  var tb=el('table'),hd=el('tr');['ID','Status','Reason'].forEach(function(h){hd.appendChild(el('th',null,h))});tb.appendChild(hd);
+  ids.forEach(function(id){var r=checkId(id),tr=el('tr');if(!r)good++;
+    tr.appendChild(el('td',null,id));tr.appendChild(el('td',r?'fail':'pass',r?'rejected':'valid'));tr.appendChild(el('td',null,r||'ok'));tb.appendChild(tr)});
+  out.appendChild(tb);
+  var ms=(performance.now()-t0).toFixed(1);
+  out.appendChild(el('p','demo-note',good+' of '+ids.length+' valid · checked in '+ms+' ms'));out.lastChild.style.marginTop='8px';
+});
+function calc(){
+  var n=+$('#calcN').value||0,m=+$('#calcM').value||0,manual=n*m*5/60,auto=manual*.18,saved=manual-auto;
+  $('#calcOut').innerHTML='';
+  var b=el('b',null,saved.toFixed(1)+' hours a week');
+  $('#calcOut').appendChild(document.createTextNode('At the 82% reduction, that frees about '));$('#calcOut').appendChild(b);
+  $('#calcOut').appendChild(document.createTextNode(' ('+manual.toFixed(1)+' h manual down to '+auto.toFixed(1)+' h). Illustrative, five working days.'));
+}
+$('#calcN').addEventListener('input',calc);$('#calcM').addEventListener('input',calc);calc();
+
+/* ---------- skills ---------- */
+var SK=[
+ ['Observability','Splunk',1],['Observability','Grafana'],['Observability','SignalFx / Splunk Observability'],['Observability','Azure Monitor'],['Observability','Datadog'],['Observability','New Relic'],['Observability','AWS CloudWatch'],['Observability','OpenTelemetry concepts'],['Observability','AppDynamics concepts'],
+ ['Cloud & DevOps','Azure',1],['Cloud & DevOps','Oracle Cloud (OCI)'],['Cloud & DevOps','GitHub'],['Cloud & DevOps','VMware Horizon'],['Cloud & DevOps','Citrix Workspace'],
+ ['ITSM','ServiceNow',1],['ITSM','Jira'],['ITSM','Confluence'],['ITSM','BMC IT Remedy'],
+ ['Data & code','SQL',1],['Data & code','Python',1],['Data & code','Oracle SQL Developer'],['Data & code','Postman'],['Data & code','Bruno'],['Data & code','Talon.One'],
+ ['GenAI','RAG'],['GenAI','MCP'],['GenAI','Tool-calling agents'],['GenAI','OCI Generative AI']
+];
+var groups=['All'].concat(SK.map(function(s){return s[0]}).filter(function(g,i,a){return a.indexOf(g)===i}));
+var grp='All',q='';
+var fbox=$('#filters');
+groups.forEach(function(g){var b=el('button','tab',g);b.type='button';b.setAttribute('aria-pressed',String(g==='All'));b.addEventListener('click',function(){grp=g;$$('#filters .tab').forEach(function(x){x.setAttribute('aria-selected',String(x===b))});drawSkills()});b.setAttribute('aria-selected',String(g==='All'));fbox.appendChild(b)});
+var si=el('input');si.type='search';si.id='skillQ';si.placeholder='Search skills';si.setAttribute('aria-label','Search skills');si.addEventListener('input',function(){q=si.value.toLowerCase();drawSkills()});fbox.appendChild(si);
+function drawSkills(){
+  var box=$('#skills');box.textContent='';
+  SK.filter(function(s){return (grp==='All'||s[0]===grp)&&s[1].toLowerCase().indexOf(q)>=0}).forEach(function(s){
+    var d=el('span','skill'+(s[2]?' core':''));d.appendChild(el('span',null,s[1]));
+    if(s[2])d.appendChild(el('span','star','primary'));d.appendChild(el('small',null,s[0]));box.appendChild(d)});
+  if(!box.children.length)box.appendChild(el('span','demo-note','No skills match that search.'));
+}
+drawSkills();
+
+/* ---------- certs ---------- */
+var CERTS=[['OCI Generative AI Professional','Oracle','Scored 95%'],['OCI DevOps Professional','Oracle'],['OCI Agentic AI Foundations Associate','Oracle'],['Claude Certified Associate Foundations (CCAO-F)','Anthropic'],['AZ-900 Azure Fundamentals','Microsoft'],['AI-900 Azure AI Fundamentals','Microsoft'],['DP-900 Azure Data Fundamentals','Microsoft'],['PL-900 Power Platform Fundamentals','Microsoft'],['SC-900 Security, Compliance, Identity','Microsoft'],['MS-900 Microsoft 365 Fundamentals','Microsoft']];
+CERTS.forEach(function(c){var d=el('div','cert');d.appendChild(el('b',null,c[0]));d.appendChild(el('span',null,c[1]));if(c[2])d.appendChild(el('em',null,c[2]));$('#certs').appendChild(d)});
+$('#certCount').textContent=CERTS.length;
+
+/* ---------- path ---------- */
+var PATH=[
+ ['Feb – May 2022','MEAN stack internship · LTIMindtree','Built full-stack features on MongoDB, Express, Angular and Node.'],
+ ['July 2022','B.Tech in Computer Science · Sree Dattha Group of Institutions','Graduated, then joined TCS.'],
+ ['TCS onboarding','Java Full Stack training','Core engineering grounding before moving into support.'],
+ ['TCS','L2 support · JCPenney (mainframe)','First production on-call work: ITSM discipline, SLAs and legacy systems that cannot go down.'],
+ ['Mar 2025 – Oct 2026','DevOps Engineer / Technical Support Executive L2 · H&M account','Cloud operations and observability across payments, settlements, promotions and order/return applications, using Splunk, Grafana, Azure Monitor and ServiceNow.'],
+ ['Now','Building GenAI tooling and looking for the next team','RAG triage, MCP agents and BPID automation, aimed at cloud, DevOps and observability roles.']
+];
+PATH.forEach(function(p,i){
+  var li=el('li',i===PATH.length-1?'now':'');var b=el('button');b.type='button';b.setAttribute('aria-expanded','false');
+  b.appendChild(el('span','when',p[0]));b.appendChild(el('span','what',p[1]));
+  var more=el('div','more',p[2]);more.hidden=true;b.appendChild(more);
+  b.addEventListener('click',function(){more.hidden=!more.hidden;b.setAttribute('aria-expanded',String(!more.hidden))});
+  li.appendChild(b);$('#pathList').appendChild(li)});
+
+/* ---------- contact ---------- */
+var L=$('#links'),any=false;
+function link(label,href,ext){var a=el('a','btn',label);a.href=href;if(ext){a.target='_blank';a.rel='noopener'}L.appendChild(a);any=true}
+if(CONFIG.github)link('GitHub',CONFIG.github,true);
+if(CONFIG.linkedin)link('LinkedIn',CONFIG.linkedin,true);
+if(CONFIG.email){var row=el('div','row');var code=el('code','mono',CONFIG.email);var cp=el('button','small','Copy email');cp.type='button';
+  cp.addEventListener('click',function(){try{navigator.clipboard.writeText(CONFIG.email).then(function(){cp.textContent='Copied'},function(){cp.textContent='Select and copy'})}catch(e){cp.textContent='Select and copy'}});
+  row.appendChild(code);row.appendChild(cp);L.appendChild(row);any=true}
+if(!any)L.appendChild(el('p','demo-note','Find me on GitHub and LinkedIn under Aradhan Babu Kammela.'));
+})();
+</script>
+
+</body></html>
